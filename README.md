@@ -25,6 +25,11 @@ You can install this module directly from this repository on your Move device:
 - **Tilt**: Velocity ramp across notes (higher notes louder or softer).
 - **Articulate**: Different strum orders (1: Low to High, 2: Outside-In, 3: High to Low, 4: Even/Odd, 5: Inside-Out, 6: Odd/Even).
 - **Length**: Control length of notes (10-2000ms).
+- **Retrigger**: Clock-synced retriggering (0 Off, 1 1B, 2 1/2B, etc.).
+- **Timing**: Straight, Dotted, Triplet.
+- **Choke**: Cut previous notes on retrigger or new note (0 or 1).
+- **Notes Limit**: Force only this number of notes to play (0-12, 0 = no limit).
+- **Fit Strum**: Fit the strum into the retrig length (0 or 1).
 
 ## Source Code
 

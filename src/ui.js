@@ -39,7 +39,7 @@ function displayMessage(l1, l2, l3, l4) {
 }
 
 function loadChords() {
-    const path = "/data/UserData/schwung/modules/other/impressive-chords/impressive_chords.json";
+    const path = "/data/UserData/schwung/modules/midi_fx/impressive-chords/impressive_chords.json";
     try {
         const content = host_read_file(path);
         if (content) {
