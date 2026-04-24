@@ -242,6 +242,33 @@ static void ec_set_param(void *instance, const char *key, const char *val) {
     else if (strcmp(key, "articulate") == 0) {
         inst->articulate = atoi(val);
     }
+    else if (strcmp(key, "state") == 0) {
+        char *p;
+        if ((p = strstr(val, "\"preset\":\""))) {
+            char *start = p + 10;
+            char *end = strchr(start, '"');
+            if (end) {
+                char preset[64];
+                int len = end - start;
+                if (len < 64) {
+                    strncpy(preset, start, len);
+                    preset[len] = '\0';
+                    for (int i = 0; i < NUM_PRESETS; i++) {
+                        if (strcmp(g_presets[i].name, preset) == 0) {
+                            inst->preset_idx = i;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if ((p = strstr(val, "\"base_note\":"))) sscanf(p + 12, "%d", &inst->base_note);
+        if ((p = strstr(val, "\"transpose\":"))) sscanf(p + 12, "%d", &inst->transpose);
+        if ((p = strstr(val, "\"invert\":"))) sscanf(p + 9, "%d", &inst->invert);
+        if ((p = strstr(val, "\"strum\":"))) sscanf(p + 8, "%d", &inst->strum);
+        if ((p = strstr(val, "\"tilt\":"))) sscanf(p + 7, "%d", &inst->tilt);
+        if ((p = strstr(val, "\"articulate\":"))) sscanf(p + 13, "%d", &inst->articulate);
+    }
 }
 
 static int ec_get_param(void *instance, const char *key, char *buf, int buf_len) {
@@ -271,6 +298,16 @@ static int ec_get_param(void *instance, const char *key, char *buf, int buf_len)
     }
     else if (strcmp(key, "chain_params") == 0) {
         return snprintf(buf, buf_len, "%s", g_chain_params);
+    }
+    else if (strcmp(key, "state") == 0) {
+        return snprintf(buf, buf_len, "{\"preset\":\"%s\",\"base_note\":%d,\"transpose\":%d,\"invert\":%d,\"strum\":%d,\"tilt\":%d,\"articulate\":%d}",
+            g_presets[inst->preset_idx].name,
+            inst->base_note,
+            inst->transpose,
+            inst->invert,
+            inst->strum,
+            inst->tilt,
+            inst->articulate);
     }
     return -1;
 }
