@@ -2,7 +2,7 @@
   "id": "impressive-chords",
   "name": "Impressive Chords",
   "description": "Advanced chord generator with strumming and clock-synced retriggering",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "author": "mestela",
   "capabilities": {
     "chainable": true,
